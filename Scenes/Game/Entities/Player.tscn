@@ -1,0 +1,384 @@
+[gd_scene load_steps=19 format=3 uid="uid://80kvtspumwke"]
+
+[ext_resource type="Script" path="res://Scripts/Game/Entities/Player.gd" id="1_w7c6q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufygw"]
+size = Vector2(18, 16)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xls8"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfh8w"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_uc6ce"]
+offsets = PackedFloat32Array(0.255208, 0.442708)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_is130"]
+gradient = SubResource("Gradient_uc6ce")
+
+[sub_resource type="Curve" id="Curve_fkn17"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8vx5m"]
+curve = SubResource("Curve_fkn17")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y67t8"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 120.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_8vx5m")
+color = Color(1, 0, 0, 1)
+color_ramp = SubResource("GradientTexture1D_is130")
+
+[sub_resource type="Animation" id="Animation_ifnan"]
+resource_name = "Idle"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.3, 2.3, 2.8, 7, 9.4, 9.7, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasModulate:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_nvqsq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4klox"]
+_data = {
+"Idle": SubResource("Animation_ifnan"),
+"RESET": SubResource("Animation_nvqsq")
+}
+
+[sub_resource type="Animation" id="Animation_7e4os"]
+resource_name = "Die"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"game_over"
+}, {
+"args": [],
+"method": &"retry"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasModulate:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0db6a"]
+resource_name = "Hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0.0666667, 1), Color(1, 0, 0.0666667, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gh5l5"]
+resource_name = "Mode"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Ammo:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HPBack:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_v701u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ammo:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HPBack:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ammo:value")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Ammo:max_value")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [17.0]
+}
+
+[sub_resource type="Animation" id="Animation_13tpp"]
+resource_name = "Reload"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reload"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ammo:value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 100.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ammo:max_value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gqwl"]
+_data = {
+"Die": SubResource("Animation_7e4os"),
+"Hurt": SubResource("Animation_0db6a"),
+"Mode": SubResource("Animation_gh5l5"),
+"RESET": SubResource("Animation_v701u"),
+"Reload": SubResource("Animation_13tpp")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_w7c6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12, 0)
+shape = SubResource("RectangleShape2D_ufygw")
+disabled = true
+
+[node name="Sprite" type="Polygon2D" parent="."]
+process_mode = 1
+position = Vector2(-12, 0)
+scale = Vector2(12, 12)
+offset = Vector2(-1, 0)
+antialiased = true
+polygon = PackedVector2Array(0, -1, 1.9, 0, 0, 1, 0.45, 0)
+
+[node name="HPBack" type="Polygon2D" parent="."]
+process_mode = 1
+position = Vector2(-11.6154, -20)
+scale = Vector2(1.0572, 1)
+offset = Vector2(11.5, 15)
+polygon = PackedVector2Array(-27, -10, -31, -15, -27, -20, 3, -20, 8, -15, 3, -10)
+
+[node name="Ammo" type="ProgressBar" parent="."]
+process_mode = 1
+offset_left = -28.0
+offset_top = -23.0
+offset_right = 3.0
+offset_bottom = -17.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8xls8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bfh8w")
+max_value = 17.0
+value = 10.0
+show_percentage = false
+
+[node name="Player" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Player"]
+position = Vector2(-12.25, 0)
+polygon = PackedVector2Array(-11.75, 12, 11.25, 0, -11.75, -12, -6.75, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 3
+z_index = 4
+emitting = false
+amount = 200
+lifetime = 5.0
+one_shot = true
+speed_scale = 3.0
+fixed_fps = 60
+trail_enabled = true
+trail_length_secs = 2.0
+process_material = SubResource("ParticleProcessMaterial_y67t8")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+z_index = -1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+libraries = {
+"": SubResource("AnimationLibrary_4klox")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_6gqwl")
+}
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_6gqwl")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.18
+
+[connection signal="area_entered" from="Player" to="." method="_on_player_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

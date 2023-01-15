@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnq5107myo4l3"]
+
+[ext_resource type="Script" path="res://Scripts/Game/Entities/Bullet.gd" id="1_02a0t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iy4pg"]
+size = Vector2(18, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coc1u"]
+size = Vector2(72, 8)
+
+[sub_resource type="Animation" id="Animation_ri0xr"]
+resource_name = "Fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yhgq3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ceq8o"]
+_data = {
+"Fade": SubResource("Animation_ri0xr"),
+"RESET": SubResource("Animation_yhgq3")
+}
+
+[node name="Bullet" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_02a0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_iy4pg")
+disabled = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+position = Vector2(4, 0)
+scale = Vector2(1.5, 1.5)
+offset = Vector2(0, 0.5)
+polygon = PackedVector2Array(6, 0.166667, 6, -1.16667, -6, -1.16667, -6, 0.166667)
+
+[node name="Bullet" type="Area2D" parent="."]
+scale = Vector2(0.25, 0.25)
+z_index = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+position = Vector2(28, 0)
+shape = SubResource("RectangleShape2D_coc1u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Fade"
+playback_speed = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_ceq8o")
+}
+
+[connection signal="area_entered" from="Bullet" to="." method="_on_area_2d_area_entered"]

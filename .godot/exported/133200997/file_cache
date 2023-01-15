@@ -1,0 +1,8 @@
+res://Data/Game.tscn::a14b3bb3fea8245fb9951a2fd892a683::1673198457::res://.godot/exported/133200997/export-3c41278474effce8f3306db75ba16a5c-Game.scn
+res://Scenes/Game/Entities/Bullet.tscn::408bd5b7b2f130cea820d3c5640ac4f2::1673734849::res://.godot/exported/133200997/export-1c952e683903687656be9ca9ca173374-Bullet.scn
+res://Scenes/Game/Entities/Enemy.tscn::d7a464deb1c562bbc2f9bb06ae2106f1::1673734849::res://.godot/exported/133200997/export-b170e3a6f5b706ed1f726a8ae42eaf2d-Enemy.scn
+res://Scenes/Game/Entities/N.tscn::9d659b9a0501a5da301376fe770dace0::1673734849::res://.godot/exported/133200997/export-de506fe5769ac555adfdc581e873ed10-N.scn
+res://Scenes/Game/Entities/Orbit.tscn::97ae8cb7f17ec850e684ba063b971654::1673734849::res://.godot/exported/133200997/export-7e13f1f2d9aaea1e9f38c97f72b58d99-Orbit.scn
+res://Scenes/Game/Entities/Player.tscn::199fae1c5dcc1dedb75248873719c1e8::1673734849::res://.godot/exported/133200997/export-a5f3b8f5b6b7ea6eae2978027203c67e-Player.scn
+res://Scenes/Game/Entities/Turrent.tscn::6908581f92db0bde48de2ac262779bcc::1673734849::res://.godot/exported/133200997/export-60305fcd93e96ad277ceea263c4a4cda-Turrent.scn
+res://Scenes/Game/World.tscn::ce7b4ad20ff47721675e711135cc67d1::1673734849::res://.godot/exported/133200997/export-a9b6b63ade9980f9d3dac9c4809fe103-World.scn
