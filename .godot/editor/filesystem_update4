@@ -1,7 +1,10 @@
-res://Scenes/Game/Entities/Bullet.tscn
 res://Scenes/Game/World.tscn
 res://Scenes/Game/Entities/Player.tscn
 res://Scenes/Game/Entities/Turrent.tscn
 res://Scenes/Game/Entities/Orbit.tscn
 res://Scenes/Game/Entities/N.tscn
 res://Scenes/Game/Entities/Enemy.tscn
+res://Scenes/Game/Entities/Bullet.tscn
+res://Scenes/Game/Entities/Beam.tscn
+res://Scripts/Game/Entities/Bullet.gd
+res://Scripts/Game/Entities/Player.gd

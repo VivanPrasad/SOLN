@@ -128,9 +128,9 @@ _data = {
 
 [node name="N" type="Polygon2D"]
 process_mode = 3
+z_index = 2
 position = Vector2(600, 337.5)
 scale = Vector2(20, 20)
-z_index = 2
 color = Color(0, 0, 0, 1)
 antialiased = true
 polygon = PackedVector2Array(-3, 0, 0, 3, 3, 0, 0, -3)
@@ -147,12 +147,11 @@ top_level = true
 position = Vector2(600, 337.5)
 scale = Vector2(25, 25)
 amount = 32
+process_material = SubResource("ParticleProcessMaterial_e7r87")
 lifetime = 3.0
 speed_scale = 2.0
 fixed_fps = 60
 trail_enabled = true
-trail_length_secs = 0.5
-process_material = SubResource("ParticleProcessMaterial_e7r87")
 
 [node name="Enemy" type="Area2D" parent="."]
 priority = 1.0

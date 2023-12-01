@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Game/Entities/Enemy.gd" id="1_2j8po"]
 
-[sub_resource type="Animation" id="Animation_logqw"]
+[sub_resource type="Animation" id="Animation_dlb34"]
 resource_name = "Die"
 length = 2.0
 tracks/0/type = "value"
@@ -68,7 +68,7 @@ tracks/4/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_fxrsy"]
+[sub_resource type="Animation" id="Animation_psdbh"]
 resource_name = "Hurt"
 length = 0.15
 step = 0.05
@@ -85,7 +85,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_7vrcf"]
+[sub_resource type="Animation" id="Animation_yu5ff"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -148,27 +148,27 @@ tracks/4/keys = {
 "values": [false]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tyhnn"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_npllc"]
 _data = {
-"Die": SubResource("Animation_logqw"),
-"Hurt": SubResource("Animation_fxrsy"),
-"RESET": SubResource("Animation_7vrcf")
+"Die": SubResource("Animation_dlb34"),
+"Hurt": SubResource("Animation_psdbh"),
+"RESET": SubResource("Animation_yu5ff")
 }
 
-[sub_resource type="Gradient" id="Gradient_vf5f6"]
+[sub_resource type="Gradient" id="Gradient_hpt6l"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_eoorp"]
-gradient = SubResource("Gradient_vf5f6")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hjylq"]
+gradient = SubResource("Gradient_hpt6l")
 
-[sub_resource type="Curve" id="Curve_b6h6v"]
+[sub_resource type="Curve" id="Curve_h5bnf"]
 max_value = 2.0
 _data = [Vector2(0.497674, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_br0sn"]
-curve = SubResource("Curve_b6h6v")
+[sub_resource type="CurveTexture" id="CurveTexture_ox255"]
+curve = SubResource("Curve_h5bnf")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u1ljs"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yks2x"]
 emission_shape = 1
 emission_sphere_radius = 1.0
 particle_flag_disable_z = true
@@ -181,8 +181,8 @@ orbit_velocity_max = 0.0
 damping_max = 10.0
 angle_max = 360.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_br0sn")
-color_ramp = SubResource("GradientTexture1D_eoorp")
+scale_curve = SubResource("CurveTexture_ox255")
+color_ramp = SubResource("GradientTexture1D_hjylq")
 
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 1
@@ -211,18 +211,18 @@ polygon = PackedVector2Array(15.5, 0.5, -14.5, -14.5, -14.5, 15.5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_tyhnn")
+"": SubResource("AnimationLibrary_npllc")
 }
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 25
+process_material = SubResource("ParticleProcessMaterial_yks2x")
 lifetime = 3.0
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
 fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_u1ljs")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

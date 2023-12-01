@@ -1,7 +1,7 @@
 extends Polygon2D
 
 var locked = false
-var health = 3
+var health = 4
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -12,13 +12,15 @@ func _process(delta):
 	if not locked:		
 		position += (get_parent().get_child(0).position - position).normalized() * 3.0
 		offset.x -= delta * 10
-		$Player.position.x = offset.x
+		$Bullet.position.x = offset.x
 	else:
 		#look_at(Vector2(600,337.5))
 		position += (Vector2(600,337.5) - position).normalized() * 2.0
 		#offset.x -= delta
 		#$Player.position.x = offset.x
-	rotation += 5.0 * delta
+	if global_position > Vector2(1200,675) or global_position < Vector2(0,0):
+			queue_free()
+	rotation += 7.0 * delta
 	scale -= Vector2(delta*0.05,delta*0.05)
 	if scale < Vector2(0.7,0.7):
 		locked = true

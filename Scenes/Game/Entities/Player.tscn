@@ -347,14 +347,14 @@ polygon = PackedVector2Array(-11.75, 12, 11.25, 0, -11.75, -12, -6.75, 0)
 process_mode = 3
 z_index = 4
 emitting = false
-amount = 200
+amount = 75
+process_material = SubResource("ParticleProcessMaterial_y67t8")
 lifetime = 5.0
 one_shot = true
 speed_scale = 3.0
 fixed_fps = 60
 trail_enabled = true
-trail_length_secs = 2.0
-process_material = SubResource("ParticleProcessMaterial_y67t8")
+trail_lifetime = 5.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 z_index = -1

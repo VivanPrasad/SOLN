@@ -3,11 +3,13 @@ extends CharacterBody2D
 @onready var bullet = preload("res://Scenes/Game/Entities/Bullet.tscn")
 @onready var turrent = preload("res://Scenes/Game/Entities/Turrent.tscn")
 @onready var orbit = preload("res://Scenes/Game/Entities/Orbit.tscn")
+@onready var scan = preload("res://Scenes/Game/Entities/Scan.tscn")
+@onready var destruct =preload("res://Scenes/Game/Entities/Destruct.tscn")
 # Called when the node enters the scene tree for the first time.
 var shooting :bool = false
 var on_cooldown = false
-var health = 20
-var modes = [["Attack",17,"000000"],["Orbit",10,"00ff00"],["Protect",4,"ff00ff"],["Roam",2,"00ffff"],["Destruct",1,"ff0000"]]
+var health = 8
+var modes = [["Attack",17,"000000"],["Orbit",10,"00ff00"],["Protect",5,"ff00ff"],["Scan",2,"00ffff"],["Destruct",1,"ff0000"]]
 var current_mode = 0
 func _ready():
 	get_parent().get_child(4).max_value = health
@@ -17,7 +19,7 @@ func _ready():
 		print(0.75+(x*(1.00-(0.25 *(x-1)))))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	position = get_global_mouse_position()
+	position += (get_global_mouse_position()-position) * 0.2
 	look_at(Vector2(600,337.5))
 	pass
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -29,20 +31,23 @@ func _process(_delta):
 
 func _input(_event):
 	if Input.is_action_just_released("ui_accept"):
-		$AnimationPlayer3.playback_speed = 1
-		$AnimationPlayer3.play("Mode")
-		if current_mode < 4:
-			current_mode = current_mode + 1
-		else:
-			current_mode = 0
-		update_ammo()
+		change_mode()
+
+func change_mode():
+	$AnimationPlayer3.speed_scale = 1
+	$AnimationPlayer3.play("Mode")
+	if current_mode < 4:
+		current_mode = current_mode + 1
+	else:
+		current_mode = 0
+	update_ammo()
 		#$Ammo.max_value = (-2*current_mode) + 10
 		#$Ammo.value = modes[current_mode][1]
 		#y = -2x + 10
 func shoot():
 	on_cooldown = true
 	if modes[current_mode][1] < 2:
-		$AnimationPlayer3.playback_speed = 1.0 / (0.75+(current_mode*(1.00-(0.25*(current_mode-1)))))
+		$AnimationPlayer3.speed_scale = 1.0 / (0.75+(current_mode*(1.00-(0.25*(current_mode-1)))))
 		$AnimationPlayer3.play("Reload")
 	modes[current_mode][1] -= 1
 	update_ammo()
@@ -61,6 +66,16 @@ func shoot():
 			var instance = turrent.instantiate()
 			instance.position = position;	instance.rotation = rotation;
 			get_parent().add_child(instance)
+		elif current_mode == 3:
+			var instance = scan.instantiate()
+			instance.position = position
+			instance.rotation = rotation;
+			get_parent().add_child(instance)
+		elif current_mode == 4:
+			for i in 2:
+				var instance = destruct.instantiate()
+				instance.position = position
+				get_parent().add_child(instance)
 
 func _on_timer_timeout():
 	on_cooldown = false
@@ -68,7 +83,7 @@ func _on_timer_timeout():
 func _on_player_area_entered(area):
 	if not str(area.name).contains("Player"):
 		if str(area.name).contains("Enemy") or area.priority == 1:
-			if health == 1:
+			if health < 2:
 				health -= 1
 				get_parent().get_child(4).value = health
 				$AnimationPlayer2.play("Die")

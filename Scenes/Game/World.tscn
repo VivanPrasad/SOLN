@@ -1,9 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://damqwy1n2ijxd"]
+[gd_scene load_steps=12 format=3 uid="uid://damqwy1n2ijxd"]
 
 [ext_resource type="PackedScene" uid="uid://80kvtspumwke" path="res://Scenes/Game/Entities/Player.tscn" id="1_grh8a"]
 [ext_resource type="PackedScene" uid="uid://brlnhaget8i25" path="res://Scenes/Game/Entities/N.tscn" id="3_mtn6w"]
 
-[sub_resource type="Animation" id="Animation_hsimr"]
+[sub_resource type="Animation" id="Animation_2gj3k"]
 resource_name = "Idle"
 length = 10.0
 loop_mode = 1
@@ -45,7 +45,7 @@ tracks/2/keys = {
 "values": [Color(0.247059, 0.247059, 0.247059, 1), Color(0.247059, 0.247059, 0.247059, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_3ogf3"]
+[sub_resource type="Animation" id="Animation_rrpcu"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -72,39 +72,29 @@ tracks/1/keys = {
 "values": [Color(0, 0, 0, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ykmo"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lbsu0"]
 _data = {
-"Idle": SubResource("Animation_hsimr"),
-"RESET": SubResource("Animation_3ogf3")
+"Idle": SubResource("Animation_2gj3k"),
+"RESET": SubResource("Animation_rrpcu")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brg0v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c87vp"]
 bg_color = Color(0.372549, 0.372549, 0.372549, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrta8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2k03l"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsq0e"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8sks"]
 bg_color = Color(0.247059, 0.247059, 0.247059, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_md7x1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kq55"]
 bg_color = Color(0, 1, 0.486275, 0.494118)
 
-[sub_resource type="SystemFont" id="SystemFont_ix53n"]
-font_names = PackedStringArray("MS Gothic")
-oversampling = 5.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_weed4"]
+[sub_resource type="LabelSettings" id="LabelSettings_vgooo"]
 line_spacing = 24.0
-font = SubResource("SystemFont_ix53n")
 
-[sub_resource type="SystemFont" id="SystemFont_frjsf"]
-font_names = PackedStringArray("MS Gothic")
-oversampling = 10.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_f0ttd"]
+[sub_resource type="LabelSettings" id="LabelSettings_dm6og"]
 line_spacing = 0.0
-font = SubResource("SystemFont_frjsf")
 font_size = 64
 
 [node name="World" type="Node2D"]
@@ -126,7 +116,7 @@ color = Color(0.784314, 0.784314, 0.784314, 1)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
 autoplay = "Idle"
 libraries = {
-"": SubResource("AnimationLibrary_4ykmo")
+"": SubResource("AnimationLibrary_lbsu0")
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -137,8 +127,8 @@ anchor_bottom = 1.0
 offset_top = 672.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxFlat_brg0v")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xrta8")
+theme_override_styles/background = SubResource("StyleBoxFlat_c87vp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2k03l")
 max_value = 500.0
 step = 0.1
 value = 500.0
@@ -148,8 +138,8 @@ show_percentage = false
 light_mask = 2
 offset_right = 1200.0
 offset_bottom = 3.0
-theme_override_styles/background = SubResource("StyleBoxFlat_gsq0e")
-theme_override_styles/fill = SubResource("StyleBoxFlat_md7x1")
+theme_override_styles/background = SubResource("StyleBoxFlat_e8sks")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5kq55")
 max_value = 15.0
 step = 1.0
 show_percentage = false
@@ -160,20 +150,24 @@ offset_top = 14.0
 offset_right = 81.0
 offset_bottom = 57.0
 text = "Command: Attack"
-label_settings = SubResource("LabelSettings_weed4")
+label_settings = SubResource("LabelSettings_vgooo")
 
 [node name="Label2" type="Label" parent="."]
 visible = false
+top_level = true
 offset_left = 472.0
 offset_top = 159.0
 offset_right = 728.0
 offset_bottom = 223.0
 rotation = -3.77099e-05
-text = "Complete"
-label_settings = SubResource("LabelSettings_f0ttd")
+text = "Solved"
+label_settings = SubResource("LabelSettings_dm6og")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ColorRect2" type="ColorRect" parent="Label2"]
 show_behind_parent = true
+layout_mode = 0
 offset_left = -471.994
 offset_top = -159.018
 offset_right = 736.006

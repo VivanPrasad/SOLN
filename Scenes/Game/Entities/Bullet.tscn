@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://Scripts/Game/Entities/Bullet.gd" id="1_02a0t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iy4pg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfyvc"]
 size = Vector2(18, 2)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_coc1u"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odbmh"]
 size = Vector2(72, 8)
 
-[sub_resource type="Animation" id="Animation_ri0xr"]
+[sub_resource type="Animation" id="Animation_qdpeo"]
 resource_name = "Fade"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_yhgq3"]
+[sub_resource type="Animation" id="Animation_2jupt"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -38,10 +38,10 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ceq8o"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uxoh7"]
 _data = {
-"Fade": SubResource("Animation_ri0xr"),
-"RESET": SubResource("Animation_yhgq3")
+"Fade": SubResource("Animation_qdpeo"),
+"RESET": SubResource("Animation_2jupt")
 }
 
 [node name="Bullet" type="CharacterBody2D"]
@@ -50,7 +50,7 @@ script = ExtResource("1_02a0t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 0)
-shape = SubResource("RectangleShape2D_iy4pg")
+shape = SubResource("RectangleShape2D_cfyvc")
 disabled = true
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
@@ -61,18 +61,17 @@ offset = Vector2(0, 0.5)
 polygon = PackedVector2Array(6, 0.166667, 6, -1.16667, -6, -1.16667, -6, 0.166667)
 
 [node name="Bullet" type="Area2D" parent="."]
-scale = Vector2(0.25, 0.25)
 z_index = 4
+scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
 position = Vector2(28, 0)
-shape = SubResource("RectangleShape2D_coc1u")
+shape = SubResource("RectangleShape2D_odbmh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Fade"
-playback_speed = 2.0
 libraries = {
-"": SubResource("AnimationLibrary_ceq8o")
+"": SubResource("AnimationLibrary_uxoh7")
 }
 
 [connection signal="area_entered" from="Bullet" to="." method="_on_area_2d_area_entered"]

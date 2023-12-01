@@ -1,11 +1,3 @@
-; Engine configuration file.
-; It's best edited using the editor UI and not directly,
-; since the parameters that go here are not all obvious.
-;
-; Format:
-;   [section] ; section goes between []
-;   param=value ; assign values to parameters
-
 config_version=5
 
 [application]
@@ -13,8 +5,13 @@ config_version=5
 config/name="SOLN"
 run/main_scene="res://Scenes/Game/World.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-config/icon="res://Assets/icon.png"
-config/windows_native_icon="res://Assets/icon.ico"
+run/max_fps=144
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://splash.png"
+boot_splash/use_filter=false
+config/icon="res://icon.png"
+config/windows_native_icon="res://windows.ico"
+config/tags=PackedStringArray("finished")
 
 [autoload]
 
@@ -34,4 +31,5 @@ scene/scene_naming=1
 
 [rendering]
 
+renderer/rendering_method.web="forward_plus"
 environment/defaults/default_clear_color=Color(0.0745098, 0.121569, 0.25098, 1)
